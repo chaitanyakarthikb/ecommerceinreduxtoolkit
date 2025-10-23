@@ -13,7 +13,7 @@ const HeroSection = () => {
             placeat veritatis voluptates beatae, sapiente impedit nihil corrupti
             eveniet obcaecati ex possimus non doloribus dicta, excepturi natus
             necessitatibus sit provident ullam reiciendis soluta. Itaque vero
-            amet quos corrupti nesciunt nam hic.
+            amet quos corrupti nesciunt nam hic
           </p>
           <Button>
             <Link to={"/products"}>Shop Now</Link>

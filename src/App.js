@@ -7,6 +7,7 @@ import About from './Pages/About';
 import Products from './Pages/Products';
 import Contact from './Pages/Contact';
 import Cart from './Pages/Cart';
+import Home from './Pages/Home';
 
 const theme = {
     colors: {
@@ -39,7 +40,7 @@ function App() {
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route path="/" />
+            <Route path="/" element={<Home/>} />
             <Route path="/about" element={<About/>} />
             <Route path="/products" element={<Products/>} />
             <Route path="/contact" element={<Contact/>}/>

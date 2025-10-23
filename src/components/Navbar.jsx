@@ -168,7 +168,7 @@ const Navbar = () => {
 
   return (
     <Nav>
-      <div className={active && "active"}>
+      <div className={active ? "active" : ""}>
         <ul className="navbar-lists">
           <li>
             <NavLink

@@ -1,18 +1,18 @@
 import axios from "axios";
-// import { data } from "react-router-dom";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
-  loading:false,
-  error:false,
-  all_products:[],
-}
+  loading: false,
+  error: false,
+  all_products: [],
+  featuredProducts: [],
+};
 
 export const getProductThunk = createAsyncThunk(
   "products/fetchingProducts",
-  async(data,{rejectWithValue})=>{
-    let apiUrl = 'https://dummyjson.com/products';
+  async (data, { rejectWithValue }) => {
+    let apiUrl = "https://dummyjson.com/products";
     try {
       const response = await axios.get(apiUrl);
       return response.data;
@@ -20,28 +20,37 @@ export const getProductThunk = createAsyncThunk(
       return rejectWithValue(error);
     }
   }
-)
+);
+
+const getFeaturedProductsLogic = (products) => {
+  let featuredProducts = [];
+  featuredProducts = products.filter((el) => el.rating >= 4.5);
+  return featuredProducts.slice(0, 3);
+};
 
 const productSlice = createSlice({
-  name:"ProductsSlice",
+  name: "ProductsSlice",
   initialState,
-  reducers:{
-
+  reducers: {
+    getFeaturedProducts: (state) => {
+      state.featuredProducts = getFeaturedProductsLogic(state.all_products);
+    },
   },
-  extraReducers:(builder)=>{
+  extraReducers: (builder) => {
     builder
-        .addCase(getProductThunk.fulfilled, (state,action)=>{
-          state.loading = false;
-          state.all_products = action.payload.products;
-        })
-        .addCase(getProductThunk.pending, (state)=>{
-          state.loading = true;
-        })
-        .addCase(getProductThunk.rejected,(state,action)=>{
-          state.loading = false;
-          state.error = true;
-        })
-  }
-})
+      .addCase(getProductThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.all_products = action.payload.products;
+      })
+      .addCase(getProductThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProductThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = true;
+      });
+  },
+});
 
+export const { getFeaturedProducts } = productSlice.actions;
 export default productSlice.reducer;

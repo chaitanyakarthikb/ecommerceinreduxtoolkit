@@ -1,22 +1,30 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductThunk } from "../Features/ProductsSlice";
+import {
+  getFeaturedProducts,
+  getProductThunk,
+} from "../Features/ProductsSlice";
 import styled from "styled-components";
 import HeroSection from "../components/HeroSection";
+import FeaturedProducts from "../components/FeaturedProducts";
 
 const Home = () => {
   const dispatch = useDispatch();
-
-  const store = useSelector((state) => {
-    console.log("=============state===========", state);
-  });
-
+  const all_products = useSelector((state) => state.products.all_products);
+  const store = useSelector((state) => state.products);
+  const featuredProducts = useSelector(
+    (state) => state.products.featuredProducts
+  );
   useEffect(() => {
     dispatch(getProductThunk());
   }, []);
+  useEffect(() => {
+    dispatch(getFeaturedProducts());
+  }, [all_products]);
   return (
     <Wrapper>
       <HeroSection />
+      <FeaturedProducts featuredProducts={featuredProducts} />
     </Wrapper>
   );
 };
@@ -29,6 +37,10 @@ const Wrapper = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  #featuredProducts {
+    width: 100%;
   }
 
   .content--container h1 {

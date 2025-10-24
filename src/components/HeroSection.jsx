@@ -7,7 +7,7 @@ const HeroSection = () => {
       <div className="grid grid-two-column">
         <div className="content--container">
           <p id="content--welcome">Welcome to</p>
-          <h1>Basva Store</h1>
+          <h1>𝓑𝓪𝓼𝓿𝓪 𝓢𝓽𝓸𝓻𝓮</h1>
           <p id="content--para">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
             placeat veritatis voluptates beatae, sapiente impedit nihil corrupti

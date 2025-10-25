@@ -9,6 +9,7 @@ import HeroSection from "../components/HeroSection";
 import FeaturedProducts from "../components/FeaturedProducts";
 import DetailsSection from "../components/DetailsSection";
 import TrustedSection from "../components/TrustedSection";
+import FooterSection from "../components/FooterSection";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Home = () => {
       <FeaturedProducts featuredProducts={featuredProducts} />
       <DetailsSection />
       <TrustedSection />
+      <FooterSection />
     </Wrapper>
   );
 };
@@ -36,6 +38,7 @@ const Home = () => {
 const Wrapper = styled.section`
   min-height: 450px;
   // padding: 0rem 0rem;
+  overflow: hidden;
 
   .hero--section--img {
     display: flex;

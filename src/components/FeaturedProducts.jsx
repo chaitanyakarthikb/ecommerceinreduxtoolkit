@@ -26,7 +26,7 @@ const FeaturedProducts = (props) => {
 
 const Wrapper = styled.section`
   background-color: ${({ theme }) => theme.colors.bg};
-  margin-bottom: 50rem;
+  margin-bottom: 10rem;
 
   h2 {
     font-weight: 700;

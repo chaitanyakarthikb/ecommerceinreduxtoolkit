@@ -1,10 +1,12 @@
 import React from "react";
+import HeroSection from "../components/HeroSection";
+import { Wrapper } from "./Home";
 
 const About = () => {
   return (
-    <div>
-      <h1>This is About Page</h1>
-    </div>
+    <Wrapper>
+      <HeroSection heading={"𝓑𝓪𝓼𝓿𝓪 𝓔𝓒𝓸𝓶𝓶𝓮𝓻𝓬𝓮"} />;
+    </Wrapper>
   );
 };
 

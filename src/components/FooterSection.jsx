@@ -82,6 +82,7 @@ const Wrapper = styled.section`
     grid-template-columns: 1fr 1fr 1fr auto;
   }
 
+
   .contactUsBox {
     display: flex;
     justify-content: space-around;

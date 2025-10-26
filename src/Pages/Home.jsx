@@ -26,16 +26,15 @@ const Home = () => {
   }, [all_products]);
   return (
     <Wrapper>
-      <HeroSection />
+      <HeroSection heading={"𝓑𝓪𝓼𝓿𝓪 𝓢𝓽𝓸𝓻𝓮"} />
       <FeaturedProducts featuredProducts={featuredProducts} />
       <DetailsSection />
       <TrustedSection />
-      <FooterSection />
     </Wrapper>
   );
 };
 
-const Wrapper = styled.section`
+export const Wrapper = styled.section`
   min-height: 450px;
   // padding: 0rem 0rem;
   overflow: hidden;
@@ -52,6 +51,8 @@ const Wrapper = styled.section`
 
   .content--container h1 {
     margin-top: 0;
+    margin-bottom: 15px;
+    line-height: 55px;
   }
 
   #content--welcome {

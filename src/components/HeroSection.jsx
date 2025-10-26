@@ -1,13 +1,14 @@
 import React from "react";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
-const HeroSection = () => {
+const HeroSection = (props) => {
+  let heading = props.heading;
   return (
     <div className="container">
       <div className="grid grid-two-column">
         <div className="content--container">
           <p id="content--welcome">Welcome to</p>
-          <h1>𝓑𝓪𝓼𝓿𝓪 𝓢𝓽𝓸𝓻𝓮</h1>
+          <h1>{heading}</h1>
           <p id="content--para">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
             placeat veritatis voluptates beatae, sapiente impedit nihil corrupti

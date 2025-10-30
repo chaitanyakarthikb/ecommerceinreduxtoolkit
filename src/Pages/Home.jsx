@@ -24,6 +24,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getFeaturedProducts());
   }, [all_products]);
+
   return (
     <Wrapper>
       <HeroSection heading={"𝓑𝓪𝓼𝓿𝓪 𝓢𝓽𝓸𝓻𝓮"} />

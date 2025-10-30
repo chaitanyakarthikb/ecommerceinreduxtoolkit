@@ -3,8 +3,8 @@ import Product from "./Product";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-const GridView = () => {
-  let products = useSelector((state) => state.products.all_products);
+const GridView = (props) => {
+  let products = props.products;
   return (
     <Wrapper>
       <div className="container grid grid-three-column">

@@ -3,21 +3,22 @@ import GridView from "./GridView";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductThunk } from "../Features/ProductsSlice";
 import ListView from "./ListView";
+import {
+  setInitialSortedAndFilteredProducts,
+  sortAccToPrice,
+} from "../Features/SortProductsSlice";
 
 const AllProducts = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProductThunk());
-  }, []);
-
-  const products = useSelector((state) => state.products.all_products);
+  const sortedAndFilteredProducts = useSelector(
+    (state) => state.sortProducts.sorted_and_filtered_products
+  );
   const sortProducts = useSelector((state) => state.sortProducts.curr_view);
   return (
     <div>
       {sortProducts === "grid_view" ? (
-        <GridView products={products} />
+        <GridView products={sortedAndFilteredProducts} />
       ) : (
-        <ListView products={products} />
+        <ListView products={sortedAndFilteredProducts} />
       )}
     </div>
   );

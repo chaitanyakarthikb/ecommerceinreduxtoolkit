@@ -9,6 +9,11 @@ import AllProducts from "../components/AllProducts";
 import Search from "../components/Search";
 
 const Products = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProductThunk());
+  }, []);
+
   return (
     <Wrapper>
       <div className="container grid-filter-columns">
@@ -31,6 +36,9 @@ const Wrapper = styled.section`
     display: grid;
     grid-template-columns: 25% 75%;
     gap: 2rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.media.mobile}) {
   }
 `;
 

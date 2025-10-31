@@ -10,7 +10,7 @@ const Sort = () => {
     dispatch(sortAccToPrice({ type: e.target.value }));
   };
   let totalProducts = useSelector(
-    (state) => state.sortProducts.sorted_and_filtered_products
+    (state) => state.sortProducts.filtered_products
   );
   let currView = useSelector((state) => state.sortProducts.curr_view);
 

@@ -2,6 +2,7 @@ import React from "react";
 import Product from "./Product";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const GridView = (props) => {
   let products = props.products;
@@ -9,7 +10,9 @@ const GridView = (props) => {
     <Wrapper>
       <div className="container grid grid-three-column">
         {products?.map((el) => (
-          <Product product={el} />
+          <Link to={`/product/${el.id}`}>
+            <Product product={el} />
+          </Link>
         ))}
       </div>
     </Wrapper>

@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "./Button";
 import FormatPrice from "./FormatPrice";
+import { Link } from "react-router-dom";
 
 const ListViewProductItem = (props) => {
   const { product } = props;
   let image = product.images[0];
-  let { category, description, title, price } = product;
+  let { description, title, price, id } = product;
   return (
     <Wrapper>
       <div className="left">
@@ -20,7 +21,9 @@ const ListViewProductItem = (props) => {
           <FormatPrice price={price} />
         </p>
         <p>{description}</p>
-        <Button>Read More</Button>
+        <Link to={`/product/${id}`}>
+          <Button>Read More</Button>
+        </Link>
       </div>
     </Wrapper>
   );

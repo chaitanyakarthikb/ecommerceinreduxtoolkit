@@ -3,7 +3,6 @@ import { getProductThunk } from "./ProductsSlice";
 
 const initialState = {
   curr_view : 'grid_view',
-  sorted_and_filtered_products:[],
   all_products:[],
   filtered_products:[],
   filters:{
@@ -19,6 +18,15 @@ const sortProductsSlice = createSlice({
   reducers: {
     setCurrView: (state, action) => {
       state.curr_view = action.payload;
+    },
+    clearFilters:(state,action)=>{
+      state.filters={
+        name:'',
+        category:'',
+        price:action.payload,
+      }
+      state.filtered_products=state.all_products;
+
     },
     setInitialPrice:(state,action)=>{
       state.filters.price=action.payload;
@@ -86,5 +94,5 @@ const sortProductsSlice = createSlice({
   },
 });
 
-export const {setCurrView,sortAccToPrice,setInitialSortedAndFilteredProducts,setFilters,filterProducts,setInitialPrice} = sortProductsSlice.actions;
+export const {setCurrView,sortAccToPrice,setInitialSortedAndFilteredProducts,setFilters,filterProducts,setInitialPrice,clearFilters} = sortProductsSlice.actions;
 export default sortProductsSlice.reducer;

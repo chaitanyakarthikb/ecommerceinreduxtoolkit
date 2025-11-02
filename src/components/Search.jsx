@@ -4,6 +4,7 @@ import styled from "styled-components";
 import FormatPrice from "./FormatPrice";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearFilters,
   filterProducts,
   setFilters,
   setInitialPrice,
@@ -17,6 +18,11 @@ const Search = () => {
     dispatch(setFilters({ type: "PRICE", price: e.target.value }));
     dispatch(filterProducts());
   };
+
+  const filterCategorySelected = useSelector(
+    (state) => state.sortProducts.filters.category
+  );
+
   const filteredPrice = useSelector(
     (state) => state.sortProducts.filters.price
   );
@@ -31,23 +37,44 @@ const Search = () => {
     setVal(maxPrice);
     dispatch(setInitialPrice(maxPrice));
   }, [maxPrice]);
+
   const handleCategorySelect = (el) => {
     let category = el.toLowerCase() === "all" ? "" : el;
     dispatch(setFilters({ type: "CATEGORY", category: category }));
     dispatch(filterProducts());
   };
+
   const handleInputChange = (e) => {
     let val = e.target.value;
     dispatch(setFilters({ type: "NAME", name: val }));
     dispatch(filterProducts());
   };
+
+  const handleClearFilters = () => {
+    dispatch(clearFilters(maxPrice));
+  };
+
   return (
     <Wrapper>
       <input onChange={(e) => handleInputChange(e)} placeholder="search" />
       <h3>Categories</h3>
       <div className="categories">
         {categories.map((el) => {
-          return <p onClick={() => handleCategorySelect(el)}>{el}</p>;
+          return (
+            <p
+              className={
+                filterCategorySelected.toLowerCase() ===
+                  el.toLocaleLowerCase() ||
+                (filterCategorySelected.toLocaleLowerCase() === "" &&
+                  el.toLocaleLowerCase() === "all")
+                  ? "underline"
+                  : ""
+              }
+              onClick={() => handleCategorySelect(el)}
+            >
+              {el}
+            </p>
+          );
         })}
       </div>
       <div className="price">
@@ -65,7 +92,7 @@ const Search = () => {
       </div>
 
       <div className="button">
-        <Button>Clear Filters</Button>
+        <Button onClick={() => handleClearFilters()}>Clear Filters</Button>
       </div>
     </Wrapper>
   );
@@ -79,6 +106,10 @@ const Wrapper = styled.section`
 
   input {
     margin-top: 2rem;
+  }
+
+  .underline {
+    text-decoration: underline;
   }
 
   .button {

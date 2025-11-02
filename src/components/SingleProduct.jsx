@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { IoMdAdd } from "react-icons/io";
+import { RiSubtractFill } from "react-icons/ri";
+
 import {
   getFeaturedProducts,
   getProductThunk,
@@ -10,6 +13,7 @@ import FormatPrice from "./FormatPrice";
 import { TbReplace, TbTruckDelivery } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
 import { Button } from "./Button";
+import { addTocart } from "../Features/CartsSlice";
 const Wrapper = styled.section`
   .container {
     padding: 5rem 5rem;
@@ -45,6 +49,14 @@ const Wrapper = styled.section`
     padding-top: 2rem;
   }
 
+  .addToCartButtons {
+    display: flex;
+    width: 15%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
   .icons {
     display: flex;
     padding: 1rem 0;
@@ -63,6 +75,18 @@ const Wrapper = styled.section`
       border-radius: 50%;
       padding: 1rem 1rem;
     }
+  }
+
+  .cautionText p {
+    color: #ff4848;
+    font-weight: 300;
+    user-select: none;
+  }
+
+  .addToCartIcon {
+    font-size: 2.3rem;
+    margin-top: 0.3rem;
+    cursor: pointer;
   }
 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
@@ -99,18 +123,37 @@ const Wrapper = styled.section`
 
 const SingleProduct = () => {
   const params = useParams();
+  const navigate = useNavigate();
   let { id } = params;
   const dispatch = useDispatch();
   const store = useSelector((state) => state.products);
   let { all_products } = store;
+
   useEffect(() => {
     dispatch(getProductThunk());
   }, []);
+
   useEffect(() => {
     dispatch(getFeaturedProducts());
   }, [all_products]);
 
-  let product = all_products.filter((el) => el.id === Number(id));
+  const [quantitySelected, setQuantitySelected] = useState(0);
+
+  const handleAddToCart = () => {
+    if (quantitySelected === 0) {
+      setQuantitySelected((prev) => prev + 1);
+    } else {
+      let cartItemObj = {
+        ...product,
+        quantity: quantitySelected,
+      };
+      dispatch(addTocart(cartItemObj));
+      navigate("/cart");
+    }
+  };
+
+  let product = all_products.find((el) => el.id === Number(id));
+
   const generateSingleProduct = (product) => {
     return (
       <Wrapper>
@@ -155,8 +198,25 @@ const SingleProduct = () => {
               </div>
             </div>
             <hr></hr>
+            {quantitySelected > 0 && (
+              <>
+                <div className="addToCartButtons">
+                  <p onClick={() => setQuantitySelected((prev) => prev - 1)}>
+                    {" "}
+                    <RiSubtractFill className="addToCartIcon" />{" "}
+                  </p>
+                  <h3>{quantitySelected}</h3>
+                  <p onClick={() => setQuantitySelected((prev) => prev + 1)}>
+                    <IoMdAdd className="addToCartIcon" />
+                  </p>
+                </div>
+                <div className="cautionText">
+                  <p>Please select the number of items</p>
+                </div>
+              </>
+            )}
             <div className="button">
-              <Button>Add to Cart</Button>
+              <Button onClick={() => handleAddToCart()}>Add to Cart</Button>
             </div>
           </div>
         </div>
@@ -165,9 +225,7 @@ const SingleProduct = () => {
   };
 
   return (
-    <div>
-      {product ? generateSingleProduct(product[0]) : <h1>Loading...</h1>}
-    </div>
+    <div>{product ? generateSingleProduct(product) : <h1>Loading...</h1>}</div>
   );
 };
 

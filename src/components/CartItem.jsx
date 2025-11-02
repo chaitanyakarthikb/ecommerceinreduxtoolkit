@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { removeFromCart, toggleQuantity } from "../Features/CartsSlice";
 import { useDispatch } from "react-redux";
 
-const CartItem = (props) => {
+const CartItem = React.memo(({ item }) => {
   const Wrapper = styled.section`
     .dFlex {
       display: flex;
@@ -16,12 +16,18 @@ const CartItem = (props) => {
       display: flex;
       justify-content: space-around !important;
       align-items: center;
+      p {
+        cursor: pointer;
+      }
     }
     .cartImg {
-      min-width: 150px;
-      max-width: 150px;
+      width: 100px;
+      height: 100px;
       img {
-        width: 75%;
+        max-width: 100%;
+        max-height: 100%;
+        height: auto;
+        width: auto;
       }
     }
     .trash {
@@ -49,7 +55,7 @@ const CartItem = (props) => {
     }
   `;
   const dispatch = useDispatch();
-  let cartItem = props.item;
+  let cartItem = item;
   let price = cartItem?.price * (1 - cartItem?.discountPercentage / 100);
   const handleRemoveFromCart = (cartItem) => {
     let { id } = cartItem;
@@ -97,6 +103,6 @@ const CartItem = (props) => {
       </div>
     </Wrapper>
   );
-};
+});
 
 export default CartItem;

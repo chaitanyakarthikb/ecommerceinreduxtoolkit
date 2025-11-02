@@ -10,6 +10,7 @@ import Cart from './Pages/Cart';
 import Home from './Pages/Home';
 import FooterSection from './components/FooterSection';
 import SingleProduct from './components/SingleProduct';
+import ComingSoon from './components/ComingSoon';
 
 const theme = {
     colors: {
@@ -47,6 +48,7 @@ function App() {
             <Route path="/products" element={<Products/>} />
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/cart" element={<Cart/>}/>
+            <Route path="/comingsoon" element={<ComingSoon/>}/>
             <Route path={`/product/:id`} element={<SingleProduct/>}/>
           </Routes>
           <FooterSection/>

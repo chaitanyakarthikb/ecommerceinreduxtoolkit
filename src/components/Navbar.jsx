@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
@@ -165,6 +166,7 @@ const Nav = styled.nav`
 `;
 const Navbar = () => {
   const [active, setActive] = useState(false);
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   return (
     <Nav>
@@ -209,7 +211,7 @@ const Navbar = () => {
           <li>
             <NavLink className="navbar-link cart-trolley--link" to={"/cart"}>
               <FaShoppingCart className="cart-trolley" />
-              {/* <span className="cart-total--item">{cart?.length}</span> */}
+              <span className="cart-total--item">{cartItems?.length}</span>
             </NavLink>
           </li>
         </ul>

@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import CartItem from "../components/CartItem";
 import { Button } from "../components/Button";
 import { clearCart } from "../Features/CartsSlice";
+import FormatPrice from "../components/FormatPrice";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const nav = useNavigate();
   const Wrapper = styled.section`
     .headerFields {
       margin-top: 3rem;
@@ -53,6 +56,30 @@ const Cart = () => {
   let cartItems = useSelector((state) => state.cart.cartItems);
   const headerFields = ["ITEM", "PRICE", "QUANTITY", "SUBTOTAL", "REMOVE"];
   const dispatch = useDispatch();
+  console.log("============cartItems======", cartItems);
+
+  const calculateSubTotal = useMemo(() => {
+    let sum = 0;
+    cartItems.map((el) => {
+      let quantity = el.quantity;
+      let price = el?.price * (1 - el?.discountPercentage / 100);
+      sum = sum + quantity * price;
+      return sum;
+    });
+    return sum;
+  }, [cartItems]);
+
+  const calculateShippingFee = () => {
+    return 5;
+  };
+
+  const calculateOrderTotal = useMemo(() => {
+    return calculateSubTotal + calculateShippingFee();
+  }, [calculateShippingFee(), calculateSubTotal]);
+
+  const routeItToNewpage = () => {
+    nav("/comingsoon");
+  };
   return (
     <Wrapper>
       <div className="container">
@@ -77,12 +104,12 @@ const Cart = () => {
             <h1>No Items Added in the cart</h1>
           ) : (
             cartItems.map((el) => {
-              return <CartItem item={el} />;
+              return <CartItem key={el.id} item={el} />;
             })
           )}
         </div>
         <div className="buttons">
-          <Button>Continue shopping</Button>
+          <Button onClick={() => routeItToNewpage()}>Continue shopping</Button>
           <Button
             id="red"
             onClick={() => {
@@ -95,18 +122,18 @@ const Cart = () => {
         <div className="subtotalBox">
           <div>
             <p>SubTotal</p>
-            <p>100</p>
+            <p>{<FormatPrice price={calculateSubTotal} />}</p>
           </div>
 
           <div>
             <p>Shipping Fee</p>
-            <p>100</p>
+            <p>{<FormatPrice price={calculateShippingFee()} />}</p>
           </div>
 
           <hr />
           <div>
             <p>Order Total:</p>
-            <p>150</p>
+            <p>{<FormatPrice price={calculateOrderTotal} />}</p>
           </div>
         </div>
       </div>

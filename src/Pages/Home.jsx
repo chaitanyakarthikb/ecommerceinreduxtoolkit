@@ -9,21 +9,19 @@ import HeroSection from "../components/HeroSection";
 import FeaturedProducts from "../components/FeaturedProducts";
 import DetailsSection from "../components/DetailsSection";
 import TrustedSection from "../components/TrustedSection";
-import FooterSection from "../components/FooterSection";
 
 const Home = () => {
   const dispatch = useDispatch();
   const all_products = useSelector((state) => state.products.all_products);
-  const store = useSelector((state) => state.products);
   const featuredProducts = useSelector(
     (state) => state.products.featuredProducts
   );
   useEffect(() => {
     dispatch(getProductThunk());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     dispatch(getFeaturedProducts());
-  }, [all_products]);
+  }, [all_products, dispatch]);
 
   return (
     <Wrapper>

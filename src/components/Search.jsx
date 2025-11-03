@@ -26,7 +26,7 @@ const Search = () => {
   const filteredPrice = useSelector(
     (state) => state.sortProducts.filters.price
   );
-  const [val, setVal] = useState(0);
+  const [, setVal] = useState(0);
   let maxPrice;
   maxPrice = useSelector((state) => {
     let allProducts = state?.sortProducts?.all_products;
@@ -36,7 +36,7 @@ const Search = () => {
   useEffect(() => {
     setVal(maxPrice);
     dispatch(setInitialPrice(maxPrice));
-  }, [maxPrice]);
+  }, [maxPrice, dispatch]);
 
   const handleCategorySelect = (el) => {
     let category = el.toLowerCase() === "all" ? "" : el;

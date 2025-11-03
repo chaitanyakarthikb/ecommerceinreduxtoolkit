@@ -132,7 +132,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(getProductThunk());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     myRef.current.scrollIntoView({
       behavior: "smooth",
@@ -142,7 +142,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(getFeaturedProducts());
-  }, [all_products]);
+  }, [all_products, dispatch]);
 
   const [quantitySelected, setQuantitySelected] = useState(0);
 

@@ -75,6 +75,7 @@ const Cart = () => {
 
   const calculateOrderTotal = useMemo(() => {
     return calculateSubTotal + calculateShippingFee();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calculateShippingFee(), calculateSubTotal]);
 
   const routeItToNewpage = () => {
@@ -108,34 +109,42 @@ const Cart = () => {
             })
           )}
         </div>
-        <div className="buttons">
-          <Button onClick={() => routeItToNewpage()}>Continue shopping</Button>
-          <Button
-            id="red"
-            onClick={() => {
-              dispatch(clearCart());
-            }}
-          >
-            Clear Cart
-          </Button>
-        </div>
-        <div className="subtotalBox">
-          <div>
-            <p>SubTotal</p>
-            <p>{<FormatPrice price={calculateSubTotal} />}</p>
-          </div>
+        {cartItems && cartItems.length > 0 ? (
+          <>
+            <div className="buttons">
+              <Button onClick={() => routeItToNewpage()}>
+                Continue shopping
+              </Button>
+              <Button
+                id="red"
+                onClick={() => {
+                  dispatch(clearCart());
+                }}
+              >
+                Clear Cart
+              </Button>
+            </div>
+            <div className="subtotalBox">
+              <div>
+                <p>SubTotal</p>
+                <p>{<FormatPrice price={calculateSubTotal} />}</p>
+              </div>
 
-          <div>
-            <p>Shipping Fee</p>
-            <p>{<FormatPrice price={calculateShippingFee()} />}</p>
-          </div>
+              <div>
+                <p>Shipping Fee</p>
+                <p>{<FormatPrice price={calculateShippingFee()} />}</p>
+              </div>
 
-          <hr />
-          <div>
-            <p>Order Total:</p>
-            <p>{<FormatPrice price={calculateOrderTotal} />}</p>
-          </div>
-        </div>
+              <hr />
+              <div>
+                <p>Order Total:</p>
+                <p>{<FormatPrice price={calculateOrderTotal} />}</p>
+              </div>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </Wrapper>
   );

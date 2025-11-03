@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
@@ -128,9 +128,16 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   const store = useSelector((state) => state.products);
   let { all_products } = store;
+  const myRef = useRef();
 
   useEffect(() => {
     dispatch(getProductThunk());
+  }, []);
+  useEffect(() => {
+    myRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   }, []);
 
   useEffect(() => {
@@ -157,7 +164,7 @@ const SingleProduct = () => {
   const generateSingleProduct = (product) => {
     return (
       <Wrapper>
-        <header>
+        <header ref={myRef}>
           <p>
             <Link to={"/"}>Home</Link>/{product?.title}
           </p>

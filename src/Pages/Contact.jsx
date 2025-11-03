@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const Contact = () => {
+  const contactRef = useRef();
+  useEffect(() => {
+    contactRef.current.scrollIntoView({
+      behaviour: "smooth",
+      block: "start",
+    });
+  }, []);
   return (
     <Wrapper>
-      <div className="heading">
+      <div ref={contactRef} className="heading">
         <h2>Contact Page</h2>
       </div>
       <iframe

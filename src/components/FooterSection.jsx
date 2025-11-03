@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button } from "./Button";
 import { FaDiscord, FaFacebookF } from "react-icons/fa";
 import { IoLogoYoutube } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const FooterSection = () => {
   return (
@@ -14,7 +15,9 @@ const FooterSection = () => {
             <h3>Talk to us today</h3>
           </div>
           <div>
-            <Button>Get Started</Button>
+            <Link to={"/contact"}>
+              <Button>Get Started</Button>
+            </Link>
           </div>
         </section>
 

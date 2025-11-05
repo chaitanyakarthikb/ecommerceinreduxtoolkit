@@ -177,8 +177,10 @@ const Wrapper = styled.section`
   .footer-form {
     display: flex;
     flex-direction: column;
-    width:50%;
+    width:80%;
     justify-content: space-between;
+    margin-left:auto;
+    margin-right:auto;
   }
 `;
 export default FooterSection;

@@ -121,7 +121,7 @@ const Nav = styled.nav`
 
       visibility: hidden;
       opacity: 0;
-      transform: translateX(100%);
+      // transform: translateX(100%);
       /* transform-origin: top; */
       transition: all 1s linear;
 

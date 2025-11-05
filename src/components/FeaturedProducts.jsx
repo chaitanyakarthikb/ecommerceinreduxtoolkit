@@ -47,6 +47,12 @@ const Wrapper = styled.section`
 
   .product--cards {
   }
+
+  @media (max-width: ${({ theme }) => theme.media.mobile}) {
+    .headings {
+      margin-top: 1rem;
+    }
+  }
 `;
 
 export default FeaturedProducts;
